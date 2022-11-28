@@ -24,7 +24,7 @@ a{
     font-size: 140%;
 }
 
-p, label, input{
+label, input{
     font-family: 'Trykker', serif;
     font-size: 150%;
     text-align: center;
@@ -118,4 +118,16 @@ i{
 i:hover{
     color: white;
     transition: 0.7s;
+}
+
+#mdperror{
+    font-size: 80%;
+    color: red;
+    text-align: center;
+}
+
+#msgok{
+    font-size: 80%;
+    color: green;
+    text-align: center;
 }
