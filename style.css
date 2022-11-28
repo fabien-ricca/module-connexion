@@ -1,0 +1,121 @@
+html, body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+body{
+    background-image: url("img/wall.jpg");
+    background-repeat: no-repeat;
+}
+
+h1{
+    font-family: 'Trirong', serif;
+    font-size: 800%;
+}
+
+a{
+    font-family: 'Sahitya', serif;
+    text-decoration: none;
+    color: white;
+    font-size: 140%;
+}
+
+p, label, input{
+    font-family: 'Trykker', serif;
+    font-size: 150%;
+    text-align: center;
+}
+
+.flex-row{
+    display: flex;
+}
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+
+/************************************************ HEADER  ************************************************/
+header{
+    height: 5rem;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav{
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+/************************************************ MAIN  ************************************************/
+main{
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/************************************************ INSCRIPTION  ************************************************/
+#form-container{
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: fit-content;
+    padding: 3%;
+    border-radius: 10px;
+    border: 2px solid black;
+    backdrop-filter: blur(10px);
+}
+
+input{
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 8%;
+    font-size: 100%;
+    border-radius: 25px;
+}
+
+#button{
+    margin-top: 5%;
+    margin-bottom: 0;
+    align-self: center;
+    background-color: #fff;
+    cursor: pointer;
+    width: 60%;
+    font-size: 150%;
+    transition: 0.2s;
+}
+
+#button:hover{
+    transform: scale(1.05);
+    transition: 0.5s;
+}
+
+
+
+
+
+
+
+
+/************************************************ FOOTER  ************************************************/
+footer{
+    justify-content: center;
+}
+
+i{
+    font-size: 2.5rem;
+    padding-bottom: 1rem;
+    color: black;
+    transition: 0.2s;
+}
+
+i:hover{
+    color: white;
+    transition: 0.7s;
+}
