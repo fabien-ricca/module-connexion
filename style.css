@@ -120,7 +120,7 @@ i:hover{
     transition: 0.7s;
 }
 
-#mdperror{
+#msgerror{
     font-size: 80%;
     color: red;
     text-align: center;
