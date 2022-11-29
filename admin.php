@@ -15,7 +15,7 @@
     <header><?php include 'include/header.php' ?></header>
 
     <main class="flex-row">
-        <h1>Bienvenue Administrateur</h1>
+        <h1>Bienvenue Admin</h1>
     </main>
 
     <footer><?php include 'include/footer.php' ?></footer>
