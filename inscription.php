@@ -1,5 +1,4 @@
-<?php include 'include/connect.php' ?>
-<!DOCTYPE html>
+<?php  ?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,67 +19,70 @@
 <!----------------------------------------------------------- PHP ------------------------------------------------------------------->      
 
     <?php 
+        include 'include/connect.php';      //On joint la connexion à la base de donnée
 
+        $msgVide = "";          //Création de la variable qui contiendra le message d'erreur champs vide
         $loginError = "";       //Création de la variable qui contiendra le message d'erreur du login
         $mdpError = "";         //Création de la variable qui contiendra le message d'erreur du mdp
         $msgok = "";            //Création de la variable qui contiendra le message de validation
-
+        var_dump($users);
         if ($_POST != NULL){
-            $login=$_POST['login'];                 // On récupère le login saisi
-            $nom=$_POST['nom'];                     // On récupère le nom saisi
-            $prenom=$_POST['prenom'];               // On récupère le prenom saisi
-            $password=$_POST['password'];           // On récupère le premier mdp saisi
-            $confpassword=$_POST['confpassword'];   // On récupère le second mdp saisi
+            $login=htmlspecialchars($_POST['login']);                 // On récupère le login saisi
+            $nom=htmlspecialchars($_POST['nom']);                     // On récupère le nom saisi
+            $prenom=htmlspecialchars($_POST['prenom']);               // On récupère le prenom saisi
+            $password=htmlspecialchars($_POST['password']);           // On récupère le premier mdp saisi
+            $confpassword=htmlspecialchars($_POST['confpassword']);   // On récupère le second mdp saisi
 
+            // On créée la regex pour la vérification du mdp
             $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/";
-            $testLogin = true;
-            $testPassword = false;
-
-            // On vérifie que le Login n'existe pas déjà, Si oui on créé le message d'erreur et on sort de la boucle
-            foreach($users as $user){
-                if($user[0] === $login){                        
-                    $loginError = "<p id='msgerror'>!! Le pseudo " . $_POST['login'] . ' est déjà utilisé !!</p>';
-                    $testLogin = false;
-                    break;
-                }
-            }
             
-            // On vérifie que les 2 mdp sont identiques 
-            if($password === $confpassword){
-                // On vérifie que le mdp remplisse les conditions   
-                if(preg_match($password_regex, $password)){
-                    $testPassword = true;
-                    echo "Mot de passe ok<br>";
+            $testLogin = true;          // On crée le booléen pour le test du login
+            $testPassword = false;      // On crée le boléen pour le test du mdp
+
+            
+            // Si les champs ne soient pas vides
+            if($login != "" && $nom != "" && $prenom != ""){
+                // On vérifie que le Login n'existe pas, Si oui on créé le message d'erreur et on sort de la boucle
+                foreach($users as $user){
+                    if($user[0] === $login){                        
+                        $loginError = "<p id='msgerror'>!! Le pseudo " . $login . ' est déjà utilisé !!</p>';
+                        $testLogin = false;
+                        break;
+                    }
                 }
+            
+            
+                // On vérifie que les 2 mdp sont identiques 
+                if($password === $confpassword){
+                    // On vérifie que le mdp remplisse les conditions   
+                    if(preg_match($password_regex, $password)){
+                        $testPassword = true;
+                        echo "Mot de passe ok<br>";
+                    }
+                    // Sinon message d'erreur
+                    else{
+                        $mdpError = "<p id='msgerror'> !! Le mot de passe doit contenir au moins 8 cractères dont
+                        1 lettre majuscule, 1 lettre minuscule et 1 chiffre!! </p>";
+                    }
+                }
+                // Sinon message d'erreur
                 else{
                     $mdpError = "<p id='msgerror'> !! Le mot de passe doit contenir au moins 8 cractères dont
-                    1 lettre majuscule, 1 lettre minuscule et 1 chiffre!! </p>";
+                                1 lettre majuscule, 1 lettre minuscule et 1 chiffre!! </p>";
+                }
+
+                // Si les deux conditions rons true, on crypte le mdp, on crée l'utilisateur, et on redirige vers la page deconnexion
+                if($testLogin && $testPassword){                        
+                    $cryptPassword = password_hash($password, PASSWORD_BCRYPT);
+                    $request = $mysqli->query("INSERT INTO `utilisateurs`(`login`, `prenom`, `nom`, `password`) VALUES ('$login', '$nom', '$prenom', '$cryptPassword')");
+                    header("location: connexion.php");
                 }
             }
+            // Sinon message d'erreur
             else{
-                $mdpError = "<p id='msgerror'> !! Le mot de passe doit contenir au moins 8 cractères dont
-                            1 lettre majuscule, 1 lettre minuscule et 1 chiffre!! </p>";
-            }
-
-            // Si les deux conditions rons true, on crypte le mdp, on crée l'utilisateur, et on redirige vers la page deconnexion
-            if($testLogin && $testPassword){                        
-                $cryptPassword = password_hash($password, PASSWORD_BCRYPT);
-                $request = $mysqli->query("INSERT INTO `utilisateurs`(`login`, `prenom`, `nom`, `password`) VALUES ('$login', '$nom', '$prenom', '$cryptPassword')");
-                header("location: connexion.php");
+                $msgVide ="<p id='msgerror'>Tous les Champs doivent être remplis.</p>";
             }
         }
-
-
-            
-
-            
-            /*if(preg_match($password_regex, $password)){
-                echo "ok";
-            }
-            else{
-                echo"pas ok";
-            }*/
-            
     ?>
 <!----------------------------------------------------------------------------------------------------------------------------------->  
         
@@ -103,9 +105,10 @@
 
                     <label for="confpassword">Confirmation</label>
                     <input type="password" class="" id="confpassword" name="confpassword" required>
-                    <?php echo $mdpError; ?>        <!-- Le message sera affiché en cas derreur -->
+                    <?php echo $mdpError; ?>          <!-- Le message sera affiché en cas derreur -->
 
-                    <input type="submit" class="" id="button" value="S'inscrire">
+                    <input type="submit" class="" id="button" value="S'inscrire" required>
+                    <?php echo $msgVide; ?>          <!-- Le message sera affiché en cas derreur -->
                 </form>
             </div>
         </main>

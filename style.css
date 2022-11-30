@@ -80,18 +80,18 @@ input{
     border-radius: 25px;
 }
 
-#button{
+#mybutton{
     margin-top: 5%;
     margin-bottom: 0;
     align-self: center;
     background-color: #fff;
     cursor: pointer;
-    width: 60%;
+    width: auto;
     font-size: 150%;
     transition: 0.2s;
 }
 
-#button:hover{
+#mybutton:hover{
     transform: scale(1.05);
     transition: 0.5s;
 }
@@ -108,14 +108,14 @@ footer{
     justify-content: center;
 }
 
-i{
+#git{
     font-size: 2.5rem;
     padding-bottom: 1rem;
     color: black;
     transition: 0.2s;
 }
 
-i:hover{
+#git:hover{
     color: white;
     transition: 0.7s;
 }

@@ -18,9 +18,41 @@
     <main class="flex-row">
 
 
-        <?php 
-            /*  var_dump($line)*/ 
-        ?>
+        <!----------------------------------------------------------- PHP ------------------------------------------------------------------->      
+
+    <?php 
+        include 'include/connect.php';      //On joint la connexion à la base de donnée
+        
+        $loginError = "";       //Création de la variable qui contiendra le message d'erreur du login
+
+        if ($_POST != NULL){
+            $login=htmlspecialchars($_POST['login']);                 // On récupère le login saisi
+            $password=htmlspecialchars($_POST['password']);           // On récupère le premier mdp saisi
+            
+            $testConnexion = false;          // On crée le booléen pour le test du login
+            
+            for($i=0; isset($users[$i]); $i++){
+                if($users[$i][0] === $login && password_verify($password, $users[$i][3])){
+                    $testConnexion = true;
+                    break;
+                }
+            }
+
+            if($testConnexion){
+                echo "Connexion réussie";
+                if($login === "admin"){
+                    header("location: admin.php");
+                }
+                else{
+                    header("location: profil.php");
+                }
+            }
+            else{
+                $loginError = "<p id='msgerror'>Nom d'utilisateur ou mot de passe incorrect.</p>";
+            }
+        }
+    ?>
+<!----------------------------------------------------------------------------------------------------------------------------------->
 
 
         <div class="flex-row" id="form-container">
@@ -29,9 +61,10 @@
                 <input type="text" class="" id="login" name="login" required>
 
                 <label for="password">Mot de passe</label>
-                <input type="text" class="" id="password" name="password" required>
+                <input type="password" class="" id="password" name="password" required>
 
-                <input type="submit" class="" id="button" value="S'inscrire">
+                <input type="submit" class="" id="mybutton" value="Se connecter">
+                <?php echo $loginError; ?>
             </form>
             
         </div>
