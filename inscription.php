@@ -25,7 +25,7 @@
         $loginError = "";       //Création de la variable qui contiendra le message d'erreur du login
         $mdpError = "";         //Création de la variable qui contiendra le message d'erreur du mdp
         $msgok = "";            //Création de la variable qui contiendra le message de validation
-        var_dump($users);
+
         if ($_POST != NULL){
             $login=htmlspecialchars($_POST['login']);                 // On récupère le login saisi
             $nom=htmlspecialchars($_POST['nom']);                     // On récupère le nom saisi
@@ -41,7 +41,7 @@
 
             
             // Si les champs ne soient pas vides
-            if($login != "" && $nom != "" && $prenom != ""){
+            if($login && $nom && $prenom){
                 // On vérifie que le Login n'existe pas, Si oui on créé le message d'erreur et on sort de la boucle
                 foreach($users as $user){
                     if($user[0] === $login){                        
@@ -50,8 +50,7 @@
                         break;
                     }
                 }
-            
-            
+
                 // On vérifie que les 2 mdp sont identiques 
                 if($password === $confpassword){
                     // On vérifie que le mdp remplisse les conditions   
@@ -91,23 +90,23 @@
             <div class="flex-row" id="form-container">
                 <form action="" Method="POST" class="flex-column">
                     <label for="login">Nom d'utilisateur</label>
-                    <input type="text" class="" id="login" name="login" required>
+                    <input type="text" id="login" name="login" >
                     <?php echo $loginError; ?>      <!--Le message sera affiché en cas d'erreur -->
 
                     <label for="nom">Nom</label>
-                    <input type="text" class="" id="nom" name="nom" required>
+                    <input type="text" id="nom" name="nom" >
 
                     <label for="prenom">Prénom</label>
-                    <input type="text" class="" id="prenom" name="prenom" required>
+                    <input type="text" id="prenom" name="prenom" >
 
                     <label for="password">Mot de passe</label>
-                    <input type="password" class="" id="password" name="password" required>
+                    <input type="password" id="password" name="password" >
 
                     <label for="confpassword">Confirmation</label>
-                    <input type="password" class="" id="confpassword" name="confpassword" required>
+                    <input type="password" id="confpassword" name="confpassword" >
                     <?php echo $mdpError; ?>          <!-- Le message sera affiché en cas derreur -->
 
-                    <input type="submit" class="" id="button" value="S'inscrire" required>
+                    <input type="submit" id="mybutton" value="S'inscrire" >
                     <?php echo $msgVide; ?>          <!-- Le message sera affiché en cas derreur -->
                 </form>
             </div>

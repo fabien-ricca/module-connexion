@@ -1,3 +1,4 @@
+<?php include 'include/connect.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +16,15 @@
     <header><?php include 'include/header.php' ?></header>
 
     <main class="flex-row">
+
+    <?php if(!isset($_SESSION['login'])){ ?>
         <h1>Welcome</h1>
+
+    <?php } else{?>
+        <h1><?php echo 'Un plaisir de vous revoir ' . $_SESSION['login'] ?></h1>
+    <?php } ?>
+    
+        
     </main>
 
     <footer><?php include 'include/footer.php' ?></footer>
