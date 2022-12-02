@@ -10,10 +10,12 @@
         <!-- Sinon, si le login de la Session ouverte est "admin" -->
         <?php } elseif($_SESSION['login'] === "admin"){?>
                 <a href="admin.php">Information Utilisateurs</a>
+            <a href="profil.php">Modifier mon profil</a>
                 <a href="deconnexion.php">Se déconnecter</a>
 
         <!-- Si une Session user est ouverte -->
         <?php } else{?>
+            <a href="profil.php">Modifier mon profil</a>
             <a href="deconnexion.php">Se déconnecter</a>
 
         <?php } ?>

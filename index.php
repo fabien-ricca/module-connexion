@@ -23,7 +23,7 @@
     <?php } else{?>
         <h1><?php echo 'Un plaisir de vous revoir ' . $_SESSION['login'] ?></h1>
     <?php } ?>
-    
+
         
     </main>
 

@@ -20,35 +20,38 @@
         <header><?php include 'include/header.php' ?></header>
 
         <main class="flex-row">
-            <table>
-                <thead>
-                    <tr>
-                    <?php 
-                         $request = $mysqli->query("SELECT login, nom, prenom FROM utilisateurs");       // On redéfinie la requête pour récupérer la table
-                         $users = $request->fetch_array(MYSQLI_ASSOC);      // On récupère ligne par ligne
+            
+            <section class="flex-column" id="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                        <?php 
+                            $request = $mysqli->query("SELECT login, nom, prenom FROM utilisateurs");       // On redéfinie la requête pour récupérer la table
+                            $users = $request->fetch_array(MYSQLI_ASSOC);      // On récupère ligne par ligne
 
-                        foreach ($users as $key => $value){             // Pour chaque élément du tableau (première ligne)
-                                echo '<th>' . $key . '</th>';           // On affiche la key
-                            }
-                        ?>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <?php 
-                    
-                        while($users != NULL){                               // Tant que $users n'est pas NULL (toujours la première ligne lors de la première boucle)
-                            echo "<tr>";
-                            foreach ($users as $key => $value){              // Pour chaque élément du tableau (ligne 1, 2, 3...)
-                                    echo '<td>' . $value . '</td>';
+                            foreach ($users as $key => $value){             // Pour chaque élément du tableau (première ligne)
+                                    echo '<th>' . $key . '</th>';           // On affiche la key
                                 }
-                            $users = $request->fetch_array(MYSQLI_ASSOC);    // On charge la seconde ligne, puis la troisième...
-                            
-                            echo "</tr>";
-                        } 
-                    ?>
-                </tbody>
-            </table>
+                            ?>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php 
+                        
+                            while($users != NULL){                               // Tant que $users n'est pas NULL (toujours la première ligne lors de la première boucle)
+                                echo "<tr>";
+                                foreach ($users as $key => $value){              // Pour chaque élément du tableau (ligne 1, 2, 3...)
+                                        echo '<td>' . $value . '</td>';
+                                    }
+                                $users = $request->fetch_array(MYSQLI_ASSOC);    // On charge la seconde ligne, puis la troisième...
+                                
+                                echo "</tr>";
+                            } 
+                        ?>
+                    </tbody>
+                </table>
+            </section>
         </main>
 
         <footer><?php include 'include/footer.php' ?></footer>

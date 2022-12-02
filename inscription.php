@@ -21,10 +21,7 @@
     <?php 
         include 'include/connect.php';      //On joint la connexion à la base de donnée
 
-        $msgVide = "";          //Création de la variable qui contiendra le message d'erreur champs vide
-        $loginError = "";       //Création de la variable qui contiendra le message d'erreur du login
-        $mdpError = "";         //Création de la variable qui contiendra le message d'erreur du mdp
-        $msgok = "";            //Création de la variable qui contiendra le message de validation
+        $msgError = "";         //Création de la variable qui contiendra le message d'erreur du mdp
 
         if ($_POST != NULL){
             $login=htmlspecialchars($_POST['login']);                 // On récupère le login saisi
@@ -45,7 +42,7 @@
                 // On vérifie que le Login n'existe pas, Si oui on créé le message d'erreur et on sort de la boucle
                 foreach($users as $user){
                     if($user[0] === $login){                        
-                        $loginError = "<p id='msgerror'>!! Le pseudo " . $login . ' est déjà utilisé !!</p>';
+                        $msgError = "<p id='msgerror'>!! Le pseudo " . $login . ' est déjà utilisé !!</p>';
                         $testLogin = false;
                         break;
                     }
@@ -56,18 +53,16 @@
                     // On vérifie que le mdp remplisse les conditions   
                     if(preg_match($password_regex, $password)){
                         $testPassword = true;
-                        echo "Mot de passe ok<br>";
                     }
                     // Sinon message d'erreur
                     else{
-                        $mdpError = "<p id='msgerror'> !! Le mot de passe doit contenir au moins 8 cractères dont
+                        $msgError = "<p id='msgerror'> !! Le mot de passe doit contenir au moins 8 cractères dont
                         1 lettre majuscule, 1 lettre minuscule et 1 chiffre!! </p>";
                     }
                 }
                 // Sinon message d'erreur
                 else{
-                    $mdpError = "<p id='msgerror'> !! Le mot de passe doit contenir au moins 8 cractères dont
-                                1 lettre majuscule, 1 lettre minuscule et 1 chiffre!! </p>";
+                    $msgError = "<p id='msgerror'> !! Les mots de passe ne sont pas identiques !!</p>";
                 }
 
                 // Si les deux conditions rons true, on crypte le mdp, on crée l'utilisateur, et on redirige vers la page deconnexion
@@ -75,11 +70,11 @@
                     $cryptPassword = password_hash($password, PASSWORD_BCRYPT);
                     $request = $mysqli->query("INSERT INTO `utilisateurs`(`login`, `prenom`, `nom`, `password`) VALUES ('$login', '$nom', '$prenom', '$cryptPassword')");
                     header("location: connexion.php");
-                }
+                } 
             }
             // Sinon message d'erreur
             else{
-                $msgVide ="<p id='msgerror'>Tous les Champs doivent être remplis.</p>";
+                $msgError ="<p id='msgerror'>Tous les Champs doivent être remplis.</p>";
             }
         }
     ?>
@@ -91,7 +86,6 @@
                 <form action="" Method="POST" class="flex-column">
                     <label for="login">Nom d'utilisateur</label>
                     <input type="text" id="login" name="login" >
-                    <?php echo $loginError; ?>      <!--Le message sera affiché en cas d'erreur -->
 
                     <label for="nom">Nom</label>
                     <input type="text" id="nom" name="nom" >
@@ -104,10 +98,9 @@
 
                     <label for="confpassword">Confirmation</label>
                     <input type="password" id="confpassword" name="confpassword" >
-                    <?php echo $mdpError; ?>          <!-- Le message sera affiché en cas derreur -->
 
                     <input type="submit" id="mybutton" value="S'inscrire" >
-                    <?php echo $msgVide; ?>          <!-- Le message sera affiché en cas derreur -->
+                    <?php echo $msgError; ?>          <!-- Le message sera affiché en cas derreur -->
                 </form>
             </div>
         </main>
