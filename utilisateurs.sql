@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : lun. 05 déc. 2022 à 10:02
+-- Généré le : ven. 09 déc. 2022 à 14:55
 -- Version du serveur : 5.5.68-MariaDB
 -- Version de PHP : 7.4.30
 
@@ -52,7 +52,8 @@ INSERT INTO `utilisateurs` (`id`, `login`, `prenom`, `nom`, `password`) VALUES
 (72, 'admin', 'admin', 'admin', '$2y$10$K6/SyY/3dsba0Rj52PBxC.8HjcU9nGtKWz6t.xgYQZgONOKqag8DW'),
 (82, 'Pyou-Pillou', 'Dubois', 'LÃ©a', '$2y$10$OfASTmlG6EaFYa7JO26lGOn6hoXY5.u06m9EmEzGvMWrMSITJrTge'),
 (84, 'Mother_Russia', 'Ivankova', 'Katushka', '$2y$10$PZv7aoGPh1vp1x.Xx3LvCuyY3/5IVoG7niP6mhnSpW4YHwc40d4EW'),
-(85, 'Poutourouille122', 'Saleur', 'Roxane', '$2y$10$KeeIpf/ZJ8Jb1P.nUO0wqOMUxZQz/IXDDylkKlxPvaEPSGXcLc1Lu');
+(85, 'Poutourouille122', 'Saleur', 'Roxane', '$2y$10$KeeIpf/ZJ8Jb1P.nUO0wqOMUxZQz/IXDDylkKlxPvaEPSGXcLc1Lu'),
+(86, 'lili', 'PREAUD', 'AurÃ©lie', '$2y$10$JpQsSo8wIGSTIpPmHAgYaO4jBx80K6/lUx6QA.w.Vu6rnMLXKvzZu');
 
 --
 -- Index pour les tables déchargées
@@ -72,7 +73,7 @@ ALTER TABLE `utilisateurs`
 -- AUTO_INCREMENT pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
